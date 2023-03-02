@@ -2,38 +2,67 @@
 
 const express = require("express");
 const bodyParser = require("body-parser");
+const date = require(__dirname+"/date.js")
+
+console.log(date());
+
 
 var items = ["Wash Cloths", "Iron Them"];
+var work_item = [];
 
 
 const app = express();
 app.use(bodyParser.urlencoded({extended:true}));
 app.set("view engine", "ejs");  // this line used to apply ejs in express file  
+app.use(express.static("public")); // explicitly telling express to use static file stored in publi folder
 
-var today = new Date();
 
-var options ={
-  weekday:"long",
-  year:"2-digit",
-  month:"short"
-}
 
-var day = today.toLocaleDateString("en-US",options);
 
 // var daylist = ["Sunday","Monday","Tuesday","Wednesday","Thrusday","Friday","Saturday"];
 
 app.get("/", function(req, res){
-  res.render("list",{Today:day, newListItems : items});
+  let day = date();
+
+  res.render("list",{ListTitle:day, newListItems : items, postPath : ""});
 
 
 
   // res.render("list",{Today:daylist[currentDay]})
 });
 
+
+app.get("/work",function (req,res) {
+  res.render("list",{ListTitle:"Work List",newListItems : work_item, postPath : "work"})
+})
+
+app.get("/about", function (req,res) {
+  res.render("about");
+})
+
+
+// app.post("/work", function (req,res) {
+//   var item = req.body.new_item;
+//   work_item.push(item);
+//   console.log(req.body);
+
+//   res.redirect("/work");
+// })
+
 app.post("/",function (req,res) {
   var item = req.body.new_item;
-  items.push(item);
+  
+
+  if (req.body.button === "Work") {
+    work_item.push(item);
+    res.redirect("/work");
+    console.log("work");
+  }
+  else{
+    items.push(item);
+  console.log(req.body);
   res.redirect("/");
+  }
 })
 
 app.listen(3000, function(){
