@@ -33,3 +33,32 @@
 	font-size: 12px;
   color: #fff;
 }
+
+.homePosts p{
+    width: 250px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#composeForm input{
+    width: 100%;
+}
+
+#composeForm textarea{
+    width: 100%;
+}
+
+.titleText{
+    margin-bottom: 5px;
+    margin-top: 40px;
+}
+
+.postText{
+    margin-bottom: 5px;
+    margin-top: 25px;
+}
+
+form button{
+    margin-top: 10px;
+}

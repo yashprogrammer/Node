@@ -1,0 +1,25 @@
+
+<%- include("partials/header"); -%>
+
+<h1>Home</h1>
+
+
+
+<div class="homePosts">
+  <% Content.forEach(function(element){ %>
+    <br>
+    <h3><%=element.title%></h3>
+    <p>
+        <%= element.desc%>
+    </p>
+    <a href=<%= element.link%>>Read More</a>
+    <br>
+    <p>/posts/<%= element.link%></p>
+
+
+  <% }) %>
+</div>
+
+
+
+<%- include("partials/footer"); -%>
